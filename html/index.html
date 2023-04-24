@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="google" content="notranslate">
+    <title>「雅音宫羽」</title>
+    <meta name="description" content="你是全世界的洛天依 却只是我一人的雅音宫羽" />
+    <meta name="decoder" content="[6737259,-15597452,6737272,-15597504,6737259,-15597451,6737262,-15597452,6737256,-15597471,6737261,-15597447,6737256,-15597522,6737251,-15597467,6737269]">
+    <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <img class="banner" src="assets/唱給雅音宮羽.png" alt="雅音宮羽" />
+            <p class="introduction">
+                「你是全世界的洛天依<br>&emsp;却只是我一人的雅音宫羽」
+            </p>
+        </header>
+        <article>
+            <section>
+                <h2>设定信息</h2>
+                <img class="banner" src="assets/img-03-detail.jpg" alt="雅音宮羽设定" />
+            </section>
+            <section>
+                <h2>思念之歌</h2>
+                <ul class="list">
+                    <a href="https://b23.tv/av333069" target="_blank" rel="noreferrer">
+                        <li>唱給雅音宮羽</li>
+                    </a>
+                    <a href="https://b23.tv/av1773542" target="_blank" rel="noreferrer">
+                        <li>唱給雅音宮羽 · Ⅱ</li>
+                    </a>
+                    <a href="https://b23.tv/av5461608" target="_blank" rel="noreferrer">
+                        <li>唱給雅音宮羽 · Ⅲ</li>
+                    </a>
+                    <a href="https://b23.tv/av12104333" target="_blank" rel="noreferrer">
+                        <li>唱給雅音宮羽 · 终</li>
+                    </a>
+                    <a href="https://b23.tv/av60660066" target="_blank" rel="noreferrer">
+                        <li>Haru</li>
+                    </a>
+                </ul>
+            </section>
+        </article>
+        <footer>
+            <ul>
+                <li>
+                    © 2023 <a href="https://www.luotianyi.dev">Tianyi Network</a>
+                </li>
+                <li>
+                    Content License:
+                    <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license noreferrer"
+                        target="_blank">CC BY-SA 4.0</a>
+                </li>
+                <li>
+                    Code License:
+                    <a href="https://opensource.org/license/gpl-3-0/" rel="license noreferrer" target="_blank">GPL 3.0 Only</a>
+                </li>
+                <li>
+                    GitHub:
+                    <a href="https://github.com/luotianyi-dev/web-yayingongyu" rel="noreferrer" target="_blank">web-yayingongyu</a>
+                </li>
+                <li>
+                    Contact: <a href="#" rel="email">[Email Protected]</a>
+                </li>
+            </ul>
+        </footer>
+        <audio style="display: none;" src="assets/唱給雅音宮羽.mp3" loop />
+    </main>
+</body>
+<script>
+    function encodeEmail(text) {
+        const encoder = new TextEncoder();
+        const data = Array.from(encoder.encode(text));
+        data.forEach((v, i) => {
+            if (i % 2 === 0) {
+                data[i] = v + 0x66ccff;
+            } else {
+                data[i] = v - 0xee0000;
+            }
+        });
+        return data;
+    }
+
+    function decodeEmail(data) {
+        const decoded = [];
+        data.forEach((v, i) => {
+            if (i % 2 === 0) {
+                decoded[i] = v - 0x66ccff;
+            } else {
+                decoded[i] = v + 0xee0000;
+            }
+        });
+        const decoder = new TextDecoder();
+        return decoder.decode(Uint8Array.from(decoded));
+    }
+
+    function playAudio() {
+        document.querySelector('audio').play().catch(() => { console.log('浏览器不支持自动播放') })
+    }
+
+    document.querySelectorAll("[rel=email]").forEach(el => {
+        const encryptedEmail = JSON.parse(document.querySelector("meta[name=decoder]").content);
+        const email = decodeEmail(encryptedEmail);
+        if (el.tagName.toLowerCase() === "a") {
+            el.href = `mailto:${email}`;
+        }
+        el.innerText = email;
+    })
+
+    playAudio();
+    document.addEventListener('click', playAudio);
+</script>
+</html>
